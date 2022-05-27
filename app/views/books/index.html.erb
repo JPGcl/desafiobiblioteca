@@ -1,0 +1,67 @@
+<p style="color: green"><%= notice %></p>
+
+<h2>Mí biblioteca</h2>
+<div class="input-group mb-3">
+   <form class="form-inline">
+    <div class="input-group-text p-0">
+        <select name="search" class="form-select form-select-lg shadow-none bg-light border-0" onchange="this.form.submit()">
+            <option selected disabled hidden>Filtrar estado del libro</option>
+            <option value="*">Todos</option>
+            <option value="Propuesto">Prestado</option>
+            <option value="En Progreso">En estante</option>
+        </select>
+    </div>
+   </form>
+</div>
+
+<div id="books" class="table-responsive">
+    <table class="table table-sm table-hover table-striped table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Título del libro
+            <%= link_to new_book_path, style: "text-decoration: none;"  do %>  
+              &nbsp;<i class="fa-solid fa-circle-plus"></i>
+            <% end %>
+          </th>
+          <th scope="col">Autor</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Fecha préstamo</th>
+          <th scope="col">Fecha devolución</th>
+          <th scope="col"></th>
+          <th scope="col">Acción</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% if @books.count > 0 %>
+          <% @books.each do |book| %>
+            <tr>
+              <td scope="row"><%= book.title %></td>
+              <td scope="row"><%= book.autor %></td>
+              <td scope="row"><%= book.status %></td>
+              <td scope="row"><%= book.loan_date %></td>
+              <td scope="row"><%= book.return_date %></td>
+              <td scope="row" class="col-auto">
+                <%= link_to book, class: "btn" do %>
+                  <i class="fa-solid fa-eye text-success"></i>
+                <% end %>
+              </td>
+              <td scope="row" class="col-auto">
+                <%= link_to edit_book_path(book), class: "btn" do %>
+                  <i class="fa-solid fa-pen-to-square text-warning"></i>
+                <% end %>
+              </td>
+              <td scope="row" class="col-auto">
+                <%= button_to book, method: :delete, class: "btn" do %>
+                  <i class="fa-solid fa-trash-can text-danger" style="text-decoration: none;"></i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <h1>No hay resultados para el filtro seleccionado.</h1>
+        <% end %>
+      </tbody>
+    </table>
+</div>

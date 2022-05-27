@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+<%= render @book %>
+<div>
+  <td scope="row">
+    <%= link_to books_path, style: "text-decoration: none;" do %>
+      &nbsp;<i class="fa-solid fa-reply text-info"></i>
+    <% end %>
+    <%= link_to edit_book_path(@book), style: "text-decoration: none;" do %>
+      <i class="fa-solid fa-pen-to-square text-warning"></i>
+    <% end %>
+
+    <%= button_to @book, method: :delete, class: "btn" do %>
+      <i class="fa-solid fa-trash-can text-danger" style="text-decoration: none;"></i>
+    <% end %>
+  </td>
+</div>
