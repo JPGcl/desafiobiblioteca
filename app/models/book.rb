@@ -1,3 +1,3 @@
-class Gestor < ApplicationRecord
+class Book < ApplicationRecord
 end
 
