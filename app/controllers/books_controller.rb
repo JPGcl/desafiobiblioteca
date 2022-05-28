@@ -1,31 +1,30 @@
 class BooksController < ApplicationController
     before_action :set_book, only: %i[ show edit update destroy ]
 
-    # GET /gestors or /gestors.json
+    # GET /books or /books.json
     def index
-      if !params[:status].present? 
-        @q = Book.all.ransack(params[:q])
-        @books = @q.result(distinct: true)
-      else
+      if params[:status].present? 
         @q = Book.where("status = ?", params[:status]).ransack(params[:q])
-        @books = @q.result(distinct: true).paginate(page: params[:status], per_page: 10)
+      else
+        @q = Book.all.page(params[:page]).ransack(params[:q])
       end
+      @books = @q.result(distinct: true)
     end
   
-    # GET /gestors/1 or /gestors/1.json
-    def show
-    end
-  
-    # GET /gestors/new
+    # GET /books/new
     def new
       @book = Book.new
     end
+
+    # GET /books/1 or /books/1.json
+    def show
+    end
   
-    # GET /gestors/1/edit
+    # GET /books/1/edit
     def edit
     end
   
-    # POST /gestors or /gestors.json
+    # POST /books or /books.json
     def create
       @book = Book.new(book_params)
   
@@ -40,7 +39,7 @@ class BooksController < ApplicationController
       end
     end
   
-    # PATCH/PUT /gestors/1 or /gestors/1.json
+    # PATCH/PUT /books/1 or /books/1.json
     def update
       respond_to do |format|
         if @book.update(book_params)
@@ -53,7 +52,7 @@ class BooksController < ApplicationController
       end
     end
   
-    # DELETE /gestors/1 or /gestors/1.json
+    # DELETE /books/1 or /books/1.json
     def destroy
       @book.destroy
   
@@ -64,13 +63,6 @@ class BooksController < ApplicationController
     end
   
     private
-
-      #def search_params
-      #  default_params = {}
-      #  default_params.merge({user_id_eq: current_user.id}) if signed_in?
-      #  # more logic here
-      #  params[:q].merge(default_params)
-      #end
 
       # Use callbacks to share common setup or constraints between actions.
       def set_book

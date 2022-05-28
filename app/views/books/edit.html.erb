@@ -1,3 +1,5 @@
-<h2>Editando el libro : <i><%= @book.title%></i></h2>
+<h3>Editando el libro : <i><%= @book.title%></i></h3>
 <br>
-<%= render "form", book: @book %>
+<div class="shadow-lg p-3 mb-5 bg-body rounded">
+    <%= render "form", book: @book %>
+</div>

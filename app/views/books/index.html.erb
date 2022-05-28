@@ -1,67 +1,69 @@
 <p style="color: green"><%= notice %></p>
 
-<h2>Mí biblioteca</h2>
+<h3>Mí biblioteca</h3>
 
-<nav class="navbar navbar-light bg-light">
-  <%= search_form_for @q, remote: true do |f| %>
-    <%= f.label :status_cont, 'Estado del libro ->' %>
-    <%= f.search_field :status_cont %>
-    <%= f.submit  value: "🔍", class: "btn" %>
-  <% end %>
-</nav>
+<div class="shadow-lg p-3 mb-5 bg-body rounded">
+  <nav class="navbar navbar-light bg-light  shadow p-3 mb-5 bg-body rounded">
+    <%= search_form_for @q, remote: true do |f| %>
+      <%= f.label :status_cont, 'Estado del libro ->' %>
+      <%= f.search_field :status_cont %>
+      <%= f.submit  value: "🔍", class: "btn" %>
+    <% end %>
+  </nav>
+  <!-- %= f.submit  value: "🔍", class: "btn btn-info" % -->
+  <div id="books" class="table-responsive">
+      <table class="table table-sm table-hover table-striped table-dark">
+        <thead>
+      <%= paginate @books %>
 
+          <tr>
+            <th scope="col">Título del libro</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Fecha préstamo</th>
+            <th scope="col">Fecha devolución</th>
+            <th scope="col"></th>
+            <th scope="col">Acción
+            </th>
+            <th scope="col">
+              <%= link_to new_book_path, style: "text-decoration: none;"  do %>  
+                &nbsp;<i class="fa-solid fa-circle-plus text-info "></i>
+              <% end %>
+            </th>
+          </tr>
+        </thead>
 
-<!-- %= f.submit  value: "🔍", class: "btn btn-info" % -->
-<br>
-<div id="books" class="table-responsive">
-    <table class="table table-sm table-hover table-striped table-dark">
-      <thead>
-        <tr>
-          <th scope="col">Título del libro</th>
-          <th scope="col">Autor</th>
-          <th scope="col">Estado</th>
-          <th scope="col">Fecha préstamo</th>
-          <th scope="col">Fecha devolución</th>
-          <th scope="col"></th>
-          <th scope="col">Acción
-          </th>
-          <th scope="col">
-            <%= link_to new_book_path, style: "text-decoration: none;"  do %>  
-              &nbsp;<i class="fa-solid fa-circle-plus text-info "></i>
+        <tbody>
+          <% if @books.count > 0 %>
+            <% @books.each do |book| %>
+              <tr>
+                <td scope="row"><%= book.title %></td>
+                <td scope="row"><%= book.author %></td>
+                <td scope="row"><%= book.status %></td>
+                <td scope="row"><%= book.loan_date %></td>
+                <td scope="row"><%= book.return_date %></td>
+                <td scope="row" class="col-auto">
+                  <%= link_to book, class: "btn" do %>
+                    <i class="fa-solid fa-eye text-success"></i>
+                  <% end %>
+                </td>
+                <td scope="row" class="col-auto">
+                  <%= link_to edit_book_path(book), class: "btn" do %>
+                    <i class="fa-solid fa-pen-to-square text-warning"></i>
+                  <% end %>
+                </td>
+                <td scope="row" class="col-auto">
+                  <%= button_to book, method: :delete, class: "btn" do %>
+                    <i class="fa-solid fa-trash-can text-danger" style="text-decoration: none;"></i>
+                  <% end %>
+                </td>
+              </tr>
             <% end %>
-          </th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% if @books.count > 0 %>
-          <% @books.each do |book| %>
-            <tr>
-              <td scope="row"><%= book.title %></td>
-              <td scope="row"><%= book.author %></td>
-              <td scope="row"><%= book.status %></td>
-              <td scope="row"><%= book.loan_date %></td>
-              <td scope="row"><%= book.return_date %></td>
-              <td scope="row" class="col-auto">
-                <%= link_to book, class: "btn" do %>
-                  <i class="fa-solid fa-eye text-success"></i>
-                <% end %>
-              </td>
-              <td scope="row" class="col-auto">
-                <%= link_to edit_book_path(book), class: "btn" do %>
-                  <i class="fa-solid fa-pen-to-square text-warning"></i>
-                <% end %>
-              </td>
-              <td scope="row" class="col-auto">
-                <%= button_to book, method: :delete, class: "btn" do %>
-                  <i class="fa-solid fa-trash-can text-danger" style="text-decoration: none;"></i>
-                <% end %>
-              </td>
-            </tr>
+          <% else %>
+            <h1>No hay resultados para el filtro seleccionado.</h1>
           <% end %>
-        <% else %>
-          <h1>No hay resultados para el filtro seleccionado.</h1>
-        <% end %>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+      <%= paginate @books %>
+  </div>
 </div>
