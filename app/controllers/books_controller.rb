@@ -1,13 +1,14 @@
 class BooksController < ApplicationController
     before_action :set_book, only: %i[ show edit update destroy ]
-  
+
     # GET /gestors or /gestors.json
     def index
-      puts params[:search]
-      if !params[:search].present? || params[:search] == "*" 
-        @books = Book.all
+      if !params[:status].present? 
+        @q = Book.all.ransack(params[:q])
+        @books = @q.result(distinct: true)
       else
-        @books = Book.where("status = ?",params[:search])
+        @q = Book.where("status = ?", params[:status]).ransack(params[:q])
+        @books = @q.result(distinct: true).paginate(page: params[:status], per_page: 10)
       end
     end
   
@@ -63,6 +64,14 @@ class BooksController < ApplicationController
     end
   
     private
+
+      #def search_params
+      #  default_params = {}
+      #  default_params.merge({user_id_eq: current_user.id}) if signed_in?
+      #  # more logic here
+      #  params[:q].merge(default_params)
+      #end
+
       # Use callbacks to share common setup or constraints between actions.
       def set_book
         @book = Book.find(params[:id])

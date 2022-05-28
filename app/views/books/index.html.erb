@@ -1,35 +1,35 @@
 <p style="color: green"><%= notice %></p>
 
 <h2>Mí biblioteca</h2>
-<div class="input-group mb-3">
-   <form class="form-inline">
-    <div class="input-group-text p-0">
-        <select name="search" class="form-select form-select-lg shadow-none bg-light border-0" onchange="this.form.submit()">
-            <option selected disabled hidden>Filtrar estado del libro</option>
-            <option value="*">Todos</option>
-            <option value="Prestado">Prestado</option>
-            <option value="En estante">En estante</option>
-        </select>
-    </div>
-   </form>
-</div>
 
+<nav class="navbar navbar-light bg-light">
+  <%= search_form_for @q, remote: true do |f| %>
+    <%= f.label :status_cont, 'Estado del libro ->' %>
+    <%= f.search_field :status_cont %>
+    <%= f.submit  value: "🔍", class: "btn" %>
+  <% end %>
+</nav>
+
+
+<!-- %= f.submit  value: "🔍", class: "btn btn-info" % -->
+<br>
 <div id="books" class="table-responsive">
     <table class="table table-sm table-hover table-striped table-dark">
       <thead>
         <tr>
-          <th scope="col">Título del libro
-            <%= link_to new_book_path, style: "text-decoration: none;"  do %>  
-              &nbsp;<i class="fa-solid fa-circle-plus"></i>
-            <% end %>
-          </th>
+          <th scope="col">Título del libro</th>
           <th scope="col">Autor</th>
           <th scope="col">Estado</th>
           <th scope="col">Fecha préstamo</th>
           <th scope="col">Fecha devolución</th>
           <th scope="col"></th>
-          <th scope="col">Acción</th>
-          <th scope="col"></th>
+          <th scope="col">Acción
+          </th>
+          <th scope="col">
+            <%= link_to new_book_path, style: "text-decoration: none;"  do %>  
+              &nbsp;<i class="fa-solid fa-circle-plus text-info "></i>
+            <% end %>
+          </th>
         </tr>
       </thead>
 

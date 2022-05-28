@@ -40,8 +40,10 @@
     <%= link_to books_path, style: "text-decoration: none; display: inline-block" do %>
       <i class="fa-solid fa-reply text-info"></i>&nbsp;
     <% end %>
-    <button type="submit" class="btn">
+    <%= form.submit value: "💾", class: "btn" %>
+    <!-- <button type="submit" class="btn">
       <i class="fa-solid fa-floppy-disk"></i>&nbsp;
     </button>
+    -->
   </div>
 <% end %>
