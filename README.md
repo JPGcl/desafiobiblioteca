@@ -1,25 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Desafío: Mí Biblioteca
 
-Things you may want to cover:
+* Autor: Juan Gutiérrez Ortega
 
-* Ruby version
+* Heroku PROD: https://peaceful-ravine-87771.herokuapp.com/ 
 
-* System dependencies
+* GitHub: https://github.com/JPGcl/desafiobiblioteca.git
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# desafiobiblioteca
